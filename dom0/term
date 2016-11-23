@@ -1,0 +1,17 @@
+#! /bin/sh
+
+VM=$1
+
+if [ "$VM" == "" ]
+then
+    echo "Usage: $0 vm_name"
+    exit 1
+fi
+
+if [ "$VM" == dvm ]
+then
+    dvm-run "gnome-terminal && while pgrep 'gnome-terminal' > /dev/null; do sleep 5; done" &
+    exit 0
+fi
+
+qvm-run -a --tray $VM gnome-terminal

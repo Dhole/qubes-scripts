@@ -1,0 +1,16 @@
+#!/bin/sh
+set -x
+set -e
+
+CONF_FILES=".bashrc .bash_aliases .vimrc"
+VM=dev
+
+for FILE in $CONF_FILES
+do
+	qvm-run --pass-io $VM "cat /home/user/git/dot_files/$FILE" > ~/tmp/$FILE
+done
+
+for FILE in $CONF_FILES
+do
+	mv ~/tmp/$FILE ~
+done

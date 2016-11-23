@@ -1,0 +1,12 @@
+#!/bin/sh
+
+VM=$1
+
+cd ~/git/dot_files/
+# dconf dump /org/gnome/terminal/ > gnome-terminal-config
+qvm-copy-to-vm $VM .bashrc .bash_aliases .Xresources .vimrc gnome-terminal-config /etc/X11/xorg.conf.d/10-dpi.conf
+
+echo "sudo mkdir -p /etc/X11/xorg.conf.d/"
+echo "sudo mv ~/QubesIncoming/dev/10-dpi.conf /etc/X11/xorg.conf.d/"
+echo "sudo mv ~/QubesIncoming/dev/{.bashrc,.bash_aliases,.Xresources,.vimrc} ~"
+echo "cat ~/QubesIncoming/dev/gnome-terminal-config | dconf load /org/gnome/terminal/ && rm ~/QubesIncoming/dev/gnome-terminal-config"

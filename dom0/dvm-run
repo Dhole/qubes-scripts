@@ -1,0 +1,11 @@
+#! /bin/sh
+
+COMMAND="$1"
+
+if [ "$COMMAND" == "" ]
+then
+    echo "Usage: $0 command"
+    exit 1
+fi
+
+echo "$COMMAND" | /usr/lib/qubes/qfile-daemon-dvm qubes.VMShell dom0 DEFAULT red

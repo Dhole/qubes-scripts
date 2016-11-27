@@ -1,0 +1,3 @@
+#! /bin/sh
+
+qvm-run -q --tray -a anon-whonix -- 'qubes-desktop-run /usr/share/applications/janondisttorbrowser.desktop'

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+xset s on +dpms
+xautolock -detectsleep -time 10 -locker 'i3lock -d -c 000000' -notify 30 -notifier "notify-send -t 2000 'Locking screen in 30 seconds'" &

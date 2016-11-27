@@ -1,0 +1,20 @@
+#!/bin/sh
+
+export DISPLAY=:0
+
+wait_and_lock() {
+   notify-send -t 2000 "Disabling screen autolock for $1..."
+   sleep $1
+   $HOME/bin/autolock-enable
+}
+
+DELAY=2h
+
+if [ "$1" != "" ]
+then
+    DELAY=$1
+fi
+    
+xautolock -exit
+xset s off -dpms
+wait_and_lock $DELAY &

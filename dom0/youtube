@@ -1,0 +1,3 @@
+#! /bin/sh
+
+qvm-run -a --tray multimedia "gnome-terminal -x sh -c '/home/user/bin/youtube'"

@@ -1,0 +1,58 @@
+#! /bin/sh
+
+check_run() {
+    qube=$1
+    if qvm-ls --raw-data name on | sed 's/\[//g' | sed 's/\]//g' | sed 's/=>//g' | grep "^${qube}|" | grep -q '*'
+    then
+        return 1
+    else
+        return 0
+    fi
+}
+
+# Debian qubes
+QUBE_LIST="debian-8
+whonix-ws
+whonix-gw
+debian-testing
+dev"
+
+for qube in ${QUBE_LIST}
+do
+    echo ""
+    echo ">>> Upgrading ${qube}..."
+    echo ""
+    check_run ${qube}
+    running=$?
+
+    qvm-run -a -p ${qube} "sudo apt update && sudo apt -y dist-upgrade"
+
+    if [ $running -eq 0 ]
+    then
+        echo "Qube ${qube} was not previously running, turning it off..."
+        qvm-run -a -p ${qube} "sudo poweroff"
+    fi
+done
+
+# Fedora qubes
+QUBE_LIST="fedora-23
+fedora-dev"
+
+for qube in ${QUBE_LIST}
+do
+    echo ""
+    echo ">>> Upgrading ${qube}..."
+    echo ""
+    check_run ${qube}
+    running=$?
+
+    qvm-run -a -p ${qube} "sudo dnf -y upgrade"
+
+    if [ $running -eq 0 ]
+    then
+        echo "Qube ${qube} was not previously running, turning it off..."
+        qvm-run -a -p ${qube} "sudo poweroff"
+    fi
+done
+
+# Others?
